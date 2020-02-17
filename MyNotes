@@ -30,6 +30,11 @@ generate classes from config/schema.yml file:
                                         php symfony propel:generate-module --with-show --non-verbose-templates frontend job JobeetJob
 
 
+SQL         :  data/sql/lib.model.schema.sql
+Schema.yml  : config/schema.yml/
+
+Load the Fixturs  :  php symfony propel:data-load
+
 ---------------------------------------------------------------------------------------------
 var_dump($request/*->getParameter('module')*/);die;
 var_dump($sfConfig::get('sf_web_dir'));die;

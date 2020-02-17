@@ -1,11 +1,11 @@
 
--- # This is a fix for InnoDB in MySQL >= 4.1.x
--- # It "suspends judgement" for fkey relationships until are tables are set.
+# This is a fix for InnoDB in MySQL >= 4.1.x
+# It "suspends judgement" for fkey relationships until are tables are set.
 SET FOREIGN_KEY_CHECKS = 0;
 
--- #-----------------------------------------------------------------------------
--- #-- jobeet_category
--- #-----------------------------------------------------------------------------
+#-----------------------------------------------------------------------------
+#-- jobeet_category
+#-----------------------------------------------------------------------------
 
 DROP TABLE IF EXISTS `jobeet_category`;
 
@@ -14,13 +14,15 @@ CREATE TABLE `jobeet_category`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`name` VARCHAR(255)  NOT NULL,
+	`slug` VARCHAR(255)  NOT NULL,
 	PRIMARY KEY (`id`),
-	UNIQUE KEY `jobeet_category_U_1` (`name`)
-);
+	UNIQUE KEY `jobeet_category_U_1` (`name`),
+	UNIQUE KEY `jobeet_category_U_2` (`slug`)
+)Type=InnoDB;
 
--- #-----------------------------------------------------------------------------
--- #-- jobeet_job
--- #-----------------------------------------------------------------------------
+#-----------------------------------------------------------------------------
+#-- jobeet_job
+#-----------------------------------------------------------------------------
 
 DROP TABLE IF EXISTS `jobeet_job`;
 
@@ -50,11 +52,11 @@ CREATE TABLE `jobeet_job`
 	CONSTRAINT `jobeet_job_FK_1`
 		FOREIGN KEY (`category_id`)
 		REFERENCES `jobeet_category` (`id`)
-);
+)Type=InnoDB;
 
--- #-----------------------------------------------------------------------------
--- #-- jobeet_affiliate
--- #-----------------------------------------------------------------------------
+#-----------------------------------------------------------------------------
+#-- jobeet_affiliate
+#-----------------------------------------------------------------------------
 
 DROP TABLE IF EXISTS `jobeet_affiliate`;
 
@@ -69,11 +71,11 @@ CREATE TABLE `jobeet_affiliate`
 	`created_at` DATETIME,
 	PRIMARY KEY (`id`),
 	UNIQUE KEY `jobeet_affiliate_U_1` (`email`)
-);
+)Type=InnoDB;
 
--- #-----------------------------------------------------------------------------
--- #-- jobeet_category_affiliate
--- #-----------------------------------------------------------------------------
+#-----------------------------------------------------------------------------
+#-- jobeet_category_affiliate
+#-----------------------------------------------------------------------------
 
 DROP TABLE IF EXISTS `jobeet_category_affiliate`;
 
@@ -92,7 +94,7 @@ CREATE TABLE `jobeet_category_affiliate`
 		FOREIGN KEY (`affiliate_id`)
 		REFERENCES `jobeet_affiliate` (`id`)
 		ON DELETE CASCADE
-);
+)Type=InnoDB;
 
--- # This restores the fkey checks, after having unset them earlier
+# This restores the fkey checks, after having unset them earlier
 SET FOREIGN_KEY_CHECKS = 1;
