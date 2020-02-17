@@ -1,0 +1,59 @@
+FROM php:5.6-fpm
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        git \
+        zlib1g-dev \
+        libzip-dev \
+        libxml2-dev \
+        libpng-dev \
+        imagemagick \
+        vim \
+        libmagickwand-dev \
+    && docker-php-ext-configure zip --with-libzip \
+    && docker-php-ext-install \
+        pdo_mysql \
+        soap \
+        zip \
+        opcache
+
+COPY build/php/orca-opcache.ini /usr/local/etc/php/conf.d/
+COPY build/php/orca-custom.ini /usr/local/etc/php/conf.d/
+
+RUN pecl install imagick
+RUN docker-php-ext-enable imagick
+
+RUN apt-get update && apt-get install -y \
+libfreetype6-dev libjpeg62-turbo-dev \
+libgd-dev
+RUN docker-php-ext-configure gd \
+--with-freetype-dir=/usr/include/ \
+--with-jpeg-dir=/usr/include/
+RUN docker-php-ext-install gd
+
+
+RUN pecl install xdebug-2.5.5
+RUN docker-php-ext-enable xdebug
+
+RUN echo "xdebug.idekey=\"PHPSTORM\"" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN echo "xdebug.remote_port=9000" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN echo "xdebug.remote_enable=1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN echo "xdebug.remote_autostart=0" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN echo "xdebug.remote_host=host.docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN echo "xdebug.remote_connect_back=1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+
+# Hack for debian-slim to make the jdk install work below.
+RUN mkdir -p /usr/share/man/man1
+
+# repo needed for jdk install below.
+RUN echo 'deb http://deb.debian.org/debian stretch-backports main' > /etc/apt/sources.list.d/backports.list
+
+# Update image & install application dependant packages.
+RUN apt-get update && apt-get install -y \
+ca-certificates-java
+
+RUN apt-get -t stretch-backports install -y default-jre
+RUN apt-get -y -q install libreoffice
+
+RUN usermod -u 1000 www-data
+RUN usermod -a -G www-data root
+
+WORKDIR /var/www/project/

@@ -1,0 +1,43 @@
+---------
+--- 1 ---
+---------
+Error : You are not allowed to access this file. Check app_dev.php for more information
+Solution : add your machin ip to  the array in this directory :  web/frontend_dev.php
+Example :  if (!in_array(@$_SERVER['REMOTE_ADDR'], array('127.0.0.1', '::1','172.23.0.1')))
+
+https://stackoverflow.com/questions/30336232/i-cant-access-to-my-web-site-symfony-you-are-not-allowed-to-access-this-file
+
+---------
+--- 2 ---
+---------
+Error :( ! ) Deprecated: preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead in /var/www/project/lib/vendor/symfony/lib/response/sfWebResponse.class.php on line 409
+https://stackoverflow.com/questions/18077276/symfony-1-4-using-deprecated-functions-in-php-5-5
+
+solution :  The errors do not show up in prod unless you have enabled debug in index.php.
+It' s also possible to remove them in dev by unsetting the E_DEPRECATED flag in settings.yml :
+
+dev:
+  .settings:
+    error_reporting:  <?php echo ((E_ALL | E_STRICT) ^ E_DEPRECATED)."\n" ?>
+---------------------------------------------------------------------------------------------
+---------
+--- 2 ---
+---------
+generate classes from config/schema.yml file:
+                                        php symfony propel:build --all-classes
+                                        php symfony propel:build --sql
+                                        php symfony propel:insert-sql
+                                        php symfony propel:generate-module --with-show --non-verbose-templates frontend job JobeetJob
+
+
+---------------------------------------------------------------------------------------------
+var_dump($request/*->getParameter('module')*/);die;
+var_dump($sfConfig::get('sf_web_dir'));die;
+
+---------------------------------------------------------------------------------------------
+cmd génère tous les route pour une application :
+                                                    php symfony app:routes frontend
+                                                    php symfony app:routes frontend job_edit
+---------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------
