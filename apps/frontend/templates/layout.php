@@ -22,7 +22,10 @@
                 <div class="post">
                     <h2>Ask for people</h2>
                     <div>
-                        <a href="<?php echo url_for('job/new') ?>">Post a Job</a>
+                        <a href="<?php echo url_for('job_new') ?>">
+                            <img title="Add a new post" src="/legacy/images/add.png" alt="Add new Job" style="margin-bottom: -5px;height: 20px;width: 20px;"/>
+                        </a>
+                        <a href="<?php echo url_for('job/new') ?>">Add a new post</a>
                     </div>
                 </div>
 

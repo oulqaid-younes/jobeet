@@ -15,27 +15,29 @@
 <?php if ($pager->haveToPaginate()): ?>
     <div class="pagination" style="margin-right: 564px;">
         <a href="<?php echo url_for('category', $category) ?>?page=1">
-            <img src="/legacy/images/first.png" alt="First page" title="First page" />
+            <img id="imgSize" src="/legacy/images/first.png" alt="First page" title="First page" />
         </a>
 
         <a href="<?php echo url_for('category', $category) ?>?page=<?php echo $pager->getPreviousPage() ?>">
-            <img src="/legacy/images/previous.png" alt="Previous page" title="Previous page" />
+            <img id="imgSize"  src="/legacy/images/previous.png" alt="Previous page" title="Previous page" />
         </a>
 
         <?php foreach ($pager->getLinks() as $page): ?>
             <?php if ($page == $pager->getPage()): ?>
+                <label id="font">
                 <?php echo $page ?>
+                </label>
             <?php else: ?>
-                <a href="<?php echo url_for('category', $category) ?>?page=<?php echo $page ?>"><?php echo $page ?></a>
+                <a id="font" href="<?php echo url_for('category', $category) ?>?page=<?php echo $page ?>"><?php echo $page ?></a>
             <?php endif; ?>
         <?php endforeach; ?>
 
         <a href="<?php echo url_for('category', $category) ?>?page=<?php echo $pager->getNextPage() ?>">
-            <img src="/legacy/images/next.png" alt="Next page" title="Next page" />
+            <img id="imgSize" src="/legacy/images/next.png" alt="Next page" title="Next page" />
         </a>
 
         <a href="<?php echo url_for('category', $category) ?>?page=<?php echo $pager->getLastPage() ?>">
-            <img src="/legacy/images/last.png" alt="Last page" title="Last page" />
+            <img id="imgSize" src="/legacy/images/last.png" alt="Last page" title="Last page" />
         </a>
     </div>
 <?php endif; ?>
@@ -47,3 +49,15 @@
         - page <strong><?php echo $pager->getPage() ?>/<?php echo $pager->getLastPage() ?></strong>
     <?php endif; ?>
 </div>
+
+<style>
+    #imgSize{
+        width:25px;
+        height: 25px;
+    }
+
+    #font{
+        font-size: larger;
+        padding: 5px;
+    }
+</style>
