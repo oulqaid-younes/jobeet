@@ -68,4 +68,30 @@ class JobeetJob extends BaseJobeetJob {
 
         return parent::save($con);
     }
+
+    public function getTypeName()
+    {
+        return $this->getType() ? JobeetJobPeer::$types[$this->getType()] : '';
+    }
+
+    public function isExpired()
+    {
+        return $this->getDaysBeforeExpires() < 0;
+    }
+
+    public function expiresSoon()
+    {
+        return $this->getDaysBeforeExpires() < 5;
+    }
+
+    public function getDaysBeforeExpires()
+    {
+        return ceil(($this->getExpiresAt('U') - time()) / 86400);
+    }
+
+    public function publish()
+    {
+        $this->setIsActivated(true);
+        $this->save();
+    }
 }

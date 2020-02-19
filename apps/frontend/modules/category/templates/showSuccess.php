@@ -13,7 +13,7 @@
 <?php include_partial('job/list', array('jobs' => $pager->getResults())) ?>
 
 <?php if ($pager->haveToPaginate()): ?>
-    <div class="pagination" style="margin-right: 564px;">
+    <div class="pagination">
         <a href="<?php echo url_for('category', $category) ?>?page=1">
             <img id="imgSize" src="/legacy/images/first.png" alt="First page" title="First page" />
         </a>
@@ -42,7 +42,7 @@
     </div>
 <?php endif; ?>
 
-<div class="pagination_desc" style="margin-left: 570px;">
+<div class="pagination_desc">
     <strong><?php echo count($pager) ?></strong> jobs in this category
 
     <?php if ($pager->haveToPaginate()): ?>

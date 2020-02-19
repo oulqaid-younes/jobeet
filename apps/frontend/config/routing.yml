@@ -10,6 +10,7 @@ category:
 job:
   class:   sfPropelRouteCollection
   options: { model: JobeetJob , column: token}
+  object_actions: { publish: put }
   requirements: { token: \w+ }
 
 
