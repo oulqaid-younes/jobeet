@@ -1,0 +1,10 @@
+### Intellij ###
+
+# Markdown Navigator plugin
+.idea/*
+
+### Symfony 1.4 ###
+# Cache and logs (Symfony1.4)
+/cache/*
+/log/*
+/web/images/*

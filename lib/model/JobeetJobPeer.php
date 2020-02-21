@@ -53,5 +53,16 @@ class JobeetJobPeer extends BaseJobeetJobPeer {
         'part-time' => 'Part time',
         'freelance' => 'Freelance',
     );
+//--------------------------------------------------
+//--------------------  THIS -----------------------
+//--------------------------------------------------
+    static public function cleanup($days)
+    {
+        $criteria = new Criteria();
+        $criteria->add(self::IS_ACTIVATED, false);
+        $criteria->add(self::CREATED_AT, time() - 86400 * $days, Criteria::LESS_THAN);
+
+        return self::doDelete($criteria);
+    }
 
 }
