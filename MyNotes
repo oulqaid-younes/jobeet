@@ -44,5 +44,12 @@ cmd génère tous les route pour une application :
                                                     php symfony app:routes frontend
                                                     php symfony app:routes frontend job_edit
 ---------------------------------------------------------------------------------------------
+Backend :
+----------
+Generate The backend application  :  $ php symfony generate:app backend
+Generate The backend Modules  :  $ php symfony propel:generate-admin backend JobeetJob --module=job
+Generate The backend Modules  :  $ php symfony propel:generate-admin backend JobeetCategory --module=category
+
+
 ---------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------

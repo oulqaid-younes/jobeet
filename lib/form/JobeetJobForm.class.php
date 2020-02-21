@@ -56,4 +56,13 @@ class JobeetJobForm extends BaseJobeetJobForm
       $this->validatorSchema->setOption('filter_extra_fields', true);
 
   }
+
+    protected function removeFields()
+    {
+        unset(
+            $this['created_at'], $this['updated_at'],
+            $this['expires_at'], $this['is_activated'],
+            $this['token']
+        );
+    }
 }

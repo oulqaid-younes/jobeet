@@ -29,4 +29,10 @@ class JobeetAffiliate extends BaseJobeetAffiliate {
 		parent::__construct();
 	}
 
+    public function __toString()
+    {
+        return sprintf('%s at %s (%s)', $this->getPosition(), $this->getCompany(), $this->getLocation());
+    }
+
+
 } // JobeetAffiliate
